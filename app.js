@@ -28,6 +28,21 @@ app.post("/api/selector", async (req, res) => {
   }
 });
 
+app.post("/api/css-questions", async (req, res) => {
+  try {
+    const data = req.body;
+    const css_quetions = collection(db, "css_quetions");
+    const batch = writeBatch(db);
+    data.forEach((docData) => {
+      const newDocRef = doc(css_quetions);
+      batch.set(newDocRef, docData);
+    });
+    await batch.commit();
+  } catch (error) {
+    res.status(400).send("css-questions error:", error.message);
+  }
+});
+
 app.get("/api/selector", async (req, res) => {
   try {
     const selector_CSS = collection(db, "selector_CSS");
