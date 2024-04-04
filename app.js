@@ -38,6 +38,7 @@ app.post("/api/css-questions", async (req, res) => {
       batch.set(newDocRef, docData);
     });
     await batch.commit();
+    res.status(201).send("Data inserted successfully");
   } catch (error) {
     res.status(400).send("css-questions error:", error.message);
   }
