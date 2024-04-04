@@ -40,7 +40,18 @@ app.post("/api/css-questions", async (req, res) => {
     await batch.commit();
     res.status(201).send("Data inserted successfully");
   } catch (error) {
-    res.status(400).send("css-questions error:", error.message);
+    res.status(400).send(error.message);
+  }
+});
+
+app.get("/api/css-quetions", async (req, res) => {
+  try {
+    const css_quetions = collection(db, "css_quetions");
+    const snapshot = await getDocs(css_quetions);
+    const data = snapshot.docs.map((doc) => doc.data());
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 });
 
